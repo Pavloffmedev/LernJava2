@@ -1,9 +1,19 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+
+class WeakPasswordException extends Exception {
+    public WeakPasswordException(String message) {
+        super(message);
+    }
+}
+
+
 public class Main {
     public static void main(String[] args) {
         try {
-            Task6(12);
+            Task20(null);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -146,62 +156,124 @@ public class Main {
 
 
     /**
-     * Задание 11:
+     * Задание 11: Создайте функцию, которая конвертирует целое число в двоичную строку.
+     * Если число отрицательное, выбрасывайте исключение
      */
-    static void Task11() {}
+    static String Task11(int number) throws IllegalArgumentException {
+        if (number < 0) {
+            throw new IllegalArgumentException("Отрицательно число");
+        }
+        return Integer.toBinaryString(number);
+    }
 
 
     /**
-     * Задание 12:
+     * Задание 12: Реализуйте функцию, которая принимает два числа и проверяет, делится ли первое число на второе.
+     * Если второе число равно нулю, выбрасывайте ArithmeticException
+     *
      */
-    static void Task12() {}
+    static boolean Task12(int a, int b) {
+        if (b == 0) {
+            throw new ArithmeticException("Деление на ноль");
+        }
+        return a % b == 0;
+    }
 
 
     /**
-     * Задание 13:
+     * Задание 13: Напишите функцию, которая возвращает элемент списка по индексу.
+     * Если индекс выходит за пределы списка, выбрасывайте IndexOutOfBoundsException
      */
-    static void Task13() {}
+    static <T> T Task13(List<T> list, int index) {
+        if (index < 0 || index >= list.size()) {
+            throw new IndexOutOfBoundsException("Индекс " + index + " выходит за пределы списка");
+        }
+        return list.get(index);
+    }
 
 
     /**
-     * Задание 14:
+     * Задание 14: Создайте функцию для проверки сложности пароля.
+     * Если пароль содержит менее 8 символов, выбрасывайте исключение WeakPasswordException
      */
-    static void Task14() {}
+    static void Task14(String password) throws WeakPasswordException {
+        if (password.length() < 8) {
+            throw new WeakPasswordException("Пароль слишком слабый. Должен содержать не менее 8 символов");
+        }
+    }
 
 
     /**
-     * Задание 15:
+     * Задание 15: Напишите функцию, которая проверяет, является ли строка корректной датой в формате "dd.MM.yyyy".
+     * Если формат неверен, выбрасывайте DateTimeParseException
      */
-    static void Task15() {}
+    static void Task15(String dateStr) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate date = LocalDate.parse(dateStr, formatter);
+    }
 
 
     /**
-     * Задание 16:
+     * Задание 16: Реализуйте функцию, которая объединяет две строки.
+     * Если одна из строк равна null, выбрасывайте NullPointerException
+     *
      */
-    static void Task16() {}
+    static String Task16(String str1, String str2) {
+        if (str1 == null || str2 == null) {
+            throw new NullPointerException("Одна из строк null");
+        }
+        return str1 + str2;
+    }
 
 
     /**
-     * Задание 17:
+     * Задание 17: Создайте функцию, которая возвращает остаток от деления двух чисел.
+     * Если второе число равно нулю, выбрасывайте исключение
+     *
      */
-    static void Task17() {}
+    static int Task17(int dividend, int divisor) {
+        if (divisor == 0) {
+            throw new ArithmeticException("Деление на ноль невозможно");
+        }
+        return dividend % divisor;
+    }
 
 
     /**
-     * Задание 18:
+     * Задание 18: Реализуйте функцию, которая находит квадратный корень числа.
+     * Если число отрицательное, выбрасывайте исключение
+     *
      */
-    static void Task18() {}
+    static double Task18(double number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("Невозможно вычислить квадратный корень");
+        }
+        return Math.sqrt(number);
+    }
 
 
     /**
-     * Задание 19:
+     * Задание 19: Напишите функцию, которая переводит температуру из Цельсия в Фаренгейт.
+     * Если температура меньше абсолютного нуля, выбрасывайте исключение
+     *
      */
-    static void Task19() {}
+    static double Task19(double celsius) {
+        if (celsius < -273.15) {
+            throw new IllegalArgumentException("Температура не может быть ниже абсолютного нуля");
+        }
+        return (celsius * 9/5) + 32;
+    }
 
 
     /**
-     * Задание 20:
+     * Задание 20: Создайте функцию, которая проверяет, является ли строка пустой или null.
+     * Если строка пустая или равна null, выбрасывайте исключение
      */
-    static void Task20() {}
+    static void Task20(String str) {
+        if (str == null || str.isEmpty()) {
+            throw new IllegalArgumentException("Строка не может быть пустой или равной null");
+        }
+
+    }
 
 }
